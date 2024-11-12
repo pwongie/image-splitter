@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Splitter</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4; /* Custom background color */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .image-container {
+            display: none; /* Hide the image container initially */
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .split-image {
+            max-width: 49%;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .save-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-custom {
+            background-color: #007bff; /* Custom button color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Image Splitter</h1>
+        <div class="text-center">
+            <input type="file" id="imageInput" class="form-control-file">
+        </div>
+        <div class="image-container mt-4" id="imageContainer">
+            <img id="leftImage" class="split-image" alt="Left Half">
+            <img id="rightImage" class="split-image" alt="Right Half">
+        </div>
+        <div class="save-buttons">
+            <button id="saveBoth" class="btn btn-custom">Save</button>
+        </div>
+    </div>
+
+    <script>
+        let leftImageDataUrl, rightImageDataUrl;
+        const imageContainer = document.getElementById('imageContainer');
+
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        const width = img.width / 2;
+                        const height = img.height;
+
+                        // Split left half
+                        canvas.width = width;
+                        canvas.height = height;
+                        context.drawImage(img, 0, 0, width, height, 0, 0, width, height);
+                        leftImageDataUrl = canvas.toDataURL();
+                        document.getElementById('leftImage').src = leftImageDataUrl;
+
+                        // Split right half
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.drawImage(img, width, 0, width, height, 0, 0, width, height);
+                        rightImageDataUrl = canvas.toDataURL();
+                        document.getElementById('rightImage').src = rightImageDataUrl;
+
+                        // Show the image container
+                        imageContainer.style.display = 'flex';
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('saveBoth').addEventListener('click', function() {
+            if (leftImageDataUrl && rightImageDataUrl) {
+                // Save left half
+                const leftLink = document.createElement('a');
+                leftLink.href = leftImageDataUrl;
+                leftLink.download = 'left_half.png';
+                leftLink.click();
+
+                // Save right half
+                const rightLink = document.createElement('a');
+                rightLink.href = rightImageDataUrl;
+                rightLink.download = 'right_half.png';
+                rightLink.click();
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
