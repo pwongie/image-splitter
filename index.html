@@ -45,22 +45,48 @@
         .btn-custom:hover {
             background-color: #0056b3; /* Darker shade on hover */
         }
+        .custom-upload-button {
+            display: inline-block;
+            background-color: #007bff; /* Custom button color */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .custom-upload-button:hover {
+            background-color: #0056b3; /* Darker shade for hover */
+        }
+
+        /* Hide the original file input */
+        .file-input {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Image Splitter</h1>
-        <div class="text-center">
-            <input type="file" id="imageInput" class="form-control-file">
-        </div>
+        <div class="text-center"></div>
+
         <div class="image-container mt-4" id="imageContainer">
             <img id="leftImage" class="split-image" alt="Left Half">
             <img id="rightImage" class="split-image" alt="Right Half">
         </div>
-        <div class="save-buttons">
-            <button id="saveBoth" class="btn btn-custom">Save</button>
-        </div>
+        <div class="container mt-5 text-center">
+            <!-- Custom File Upload Button -->
+        <label id="imageInput" class="custom-upload-button">
+            Upload a File
+            <input type="file" class="file-input">
+        </label>
+        <button id="saveBoth" class="btn btn-custom">Save</button>
+
     </div>
+
 
     <script>
         let leftImageDataUrl, rightImageDataUrl;
