@@ -1,163 +1,150 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <!DOCTYPE html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Instagram Threads Image Splitter">
-    <meta property="og:description" content="Pinch Instagram Threads to become one full image and it looks pretty funny. Use this website to do that.">
-    <meta property="og:url" content="https://pwongie.github.io/image-splitter/">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://yourwebsite.com/path/to/your/image.jpg">
-    <meta property="og:image:alt" content="Image Splitter preview showing how images are split for Instagram Threads">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Instagram Threads Image Splitter">
-    <meta name="twitter:description" content="Pinch Instagram Threads to become one full image and it looks pretty funny. Use this website to do that.">
-    <meta name="twitter:image" content="https://yourwebsite.com/path/to/your/image.jpg">
-    <meta name="twitter:image:alt" content="Image Splitter preview showing how images are split for Instagram Threads">
     <title>Image Splitter</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            body {
-                background-color: #f4f4f4; /* Custom background color */
-                font-family: Arial, sans-serif;
-            }
-            .container {
-                background-color: white;
-                padding: 30px;
-                border-radius: 8px;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-                margin-top: 50px;
-            }
-            .image-container {
-                display: none; /* Hide the image container initially */
-                justify-content: space-between;
-                margin-top: 20px;
-            }
-            .split-image {
-                max-width: 49%;
-                border: 2px solid #ddd;
-                border-radius: 4px;
-            }
-            .save-buttons {
-                display: flex;
-                justify-content: center;
-                margin-top: 20px;
-            }
-            .btn-custom {
-                background-color: #007bff; /* Custom button color */
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                font-size: 16px;
-                transition: background-color 0.3s;
-            }
-            .btn-custom:hover {
-                background-color: #0056b3; /* Darker shade on hover */
-            }
-            .custom-upload-button {
-                display: inline-block;
-                background-color: #007bff; /* Custom button color */
-                color: white;
-                padding: 10px 20px;
-                font-size: 16px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                text-align: center;
-                transition: background-color 0.3s;
-            }
+    <style>
+        body {
+            background-color: #f4f4f4; /* Custom background color */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .image-container {
+            display: none; /* Hide the image container initially */
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .split-image {
+            max-width: 49%;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .save-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-custom {
+            background-color: #007bff; /* Custom button color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+        .custom-upload-button {
+            display: inline-block;
+            background-color: #007bff; /* Custom button color */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
 
-            .custom-upload-button:hover {
-                background-color: #0056b3; /* Darker shade for hover */
-            }
+        .custom-upload-button:hover {
+            background-color: #0056b3; /* Darker shade for hover */
+        }
 
-            /* Hide the original file input */
-            .file-input {
-                display: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container mt-5">
-            <h1 class="text-center">Image Splitter</h1>
-            <div class="text-center">Split images to send them to <a href="http://www.threads.net">threads</a> when you pinch them together they become one image and its pretty funny<br><strong><em>Horizontal Images Reccomended. </em></strong></div>
-            <div class="image-container mt-4" id="imageContainer">
-                <img id="leftImage" class="split-image" alt="Left Half">
-                <img id="rightImage" class="split-image" alt="Right Half">
-            </div>
-            <div class="container mt-5 text-center">
-                <!-- Custom File Upload Button -->
-            <label id="imageInput" class="custom-upload-button">
-                Upload a File
-                <input type="file" class="file-input">
-            </label>
-            <button id="saveBoth" class="btn btn-custom">Save</button>
-
+        /* Hide the original file input */
+        .file-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Image Splitter</h1>
+        <div class="text-center">Split images to send them to <a href="http://www.threads.net">threads</a> when you pinch them together they become one image and its pretty funny<br><strong><em>Horizontal Images Reccomended. </em></strong></div>
+        <div class="image-container mt-4" id="imageContainer">
+            <img id="leftImage" class="split-image" alt="Left Half">
+            <img id="rightImage" class="split-image" alt="Right Half">
         </div>
+        <div class="container mt-5 text-center">
+            <!-- Custom File Upload Button -->
+        <label id="imageInput" class="custom-upload-button">
+            Upload a File
+            <input type="file" class="file-input">
+        </label>
+        <button id="saveBoth" class="btn btn-custom">Save</button>
+
+    </div>
 
 
-        <script>
-            let leftImageDataUrl, rightImageDataUrl;
-            const imageContainer = document.getElementById('imageContainer');
+    <script>
+        let leftImageDataUrl, rightImageDataUrl;
+        const imageContainer = document.getElementById('imageContainer');
 
-            document.getElementById('imageInput').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = new Image();
-                        img.src = e.target.result;
-                        img.onload = function() {
-                            const canvas = document.createElement('canvas');
-                            const context = canvas.getContext('2d');
-                            const width = img.width / 2;
-                            const height = img.height;
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        const width = img.width / 2;
+                        const height = img.height;
 
-                            // Split left half
-                            canvas.width = width;
-                            canvas.height = height;
-                            context.drawImage(img, 0, 0, width, height, 0, 0, width, height);
-                            leftImageDataUrl = canvas.toDataURL();
-                            document.getElementById('leftImage').src = leftImageDataUrl;
+                        // Split left half
+                        canvas.width = width;
+                        canvas.height = height;
+                        context.drawImage(img, 0, 0, width, height, 0, 0, width, height);
+                        leftImageDataUrl = canvas.toDataURL();
+                        document.getElementById('leftImage').src = leftImageDataUrl;
 
-                            // Split right half
-                            context.clearRect(0, 0, canvas.width, canvas.height);
-                            context.drawImage(img, width, 0, width, height, 0, 0, width, height);
-                            rightImageDataUrl = canvas.toDataURL();
-                            document.getElementById('rightImage').src = rightImageDataUrl;
+                        // Split right half
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.drawImage(img, width, 0, width, height, 0, 0, width, height);
+                        rightImageDataUrl = canvas.toDataURL();
+                        document.getElementById('rightImage').src = rightImageDataUrl;
 
-                            // Show the image container
-                            imageContainer.style.display = 'flex';
-                        };
+                        // Show the image container
+                        imageContainer.style.display = 'flex';
                     };
-                    reader.readAsDataURL(file);
-                }
-            });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-            document.getElementById('saveBoth').addEventListener('click', function() {
-                if (leftImageDataUrl && rightImageDataUrl) {
-                    // Save left half
-                    const leftLink = document.createElement('a');
-                    leftLink.href = leftImageDataUrl;
-                    leftLink.download = 'left_half.png';
-                    leftLink.click();
+        document.getElementById('saveBoth').addEventListener('click', function() {
+            if (leftImageDataUrl && rightImageDataUrl) {
+                // Save left half
+                const leftLink = document.createElement('a');
+                leftLink.href = leftImageDataUrl;
+                leftLink.download = 'left_half.png';
+                leftLink.click();
 
-                    // Save right half
-                    const rightLink = document.createElement('a');
-                    rightLink.href = rightImageDataUrl;
-                    rightLink.download = 'right_half.png';
-                    rightLink.click();
-                }
-            });
-        </script>
+                // Save right half
+                const rightLink = document.createElement('a');
+                rightLink.href = rightImageDataUrl;
+                rightLink.download = 'right_half.png';
+                rightLink.click();
+            }
+        });
+    </script>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </body>
-    </html>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
